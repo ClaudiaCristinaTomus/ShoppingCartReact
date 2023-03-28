@@ -78,7 +78,7 @@ function App() {
           <div key={index} className={slideIndex ===
                 index + 1 ? "relative" : "hidden"}
           >
-                <img src={mainImage} alt="" className="w-full rounded-2xl" />
+                <img src={item.mainImage} alt="" className="w-full lg:rounded-2xl" />
 
                 <ul>
                   <li><button
