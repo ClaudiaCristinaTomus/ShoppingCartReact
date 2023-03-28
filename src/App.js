@@ -37,6 +37,39 @@ function Header() {
     </>
   )
 }
+
+
+
+function Lightbox({products, slideIndex,nextSlide,previousSlide}){
+  <h2 className="text-8xl font-bold">Lightbox</h2>
+  return (
+    <>
+    <article className="bg-black bg-opacity-75 absolute top-0 left-0 right-0 bottom-0 z-50">
+      <div>
+        {products.map((item,index)=>(
+           <div key={index} className={slideIndex ===
+            index + 1 ? "relative" : "hidden"}
+      >
+            <img src={item.mainImage} alt="" className="lg:rounded-2xl" />
+
+            <ul>
+              <li><button
+                onClick={previousSlide}
+                className="bg-white rounded-full p-5 shadow absolute left-2 top-1/2 -translate-y-1/2"><FaChevronLeft /></button></li>
+              <li><button
+                onClick={nextSlide}
+                className="bg-white rounded-full p-5 shadow absolute right-2 top-1/2 -translate-y-1/2"><FaChevronRight /></button></li>
+            </ul>
+
+    
+            </div>
+        ))}
+      </div>
+     
+    </article>
+    </>
+  )
+}
 function App() {
   const [products] = useState(data);
   const [value, setValue] = useState(0);
@@ -71,6 +104,7 @@ function App() {
   return (
     <>
       <Header />
+      <Lightbox products={products} slideIndex={slideIndex} nextSlide={nextSlide} previousSlide={previousSlide}/>
       <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:mt-10">
         <article>
           <div>
@@ -80,7 +114,7 @@ function App() {
           >
                 <img src={item.mainImage} alt="" className="w-full lg:rounded-2xl" />
 
-                <ul>
+                <ul className="lg:hidden">
                   <li><button
                     onClick={previousSlide}
                     className="bg-white rounded-full p-5 shadow absolute left-2 top-1/2 -translate-y-1/2"><FaChevronLeft /></button></li>
