@@ -1,79 +1,11 @@
 import { useState } from "react";
 import { data } from "./data";
-import logo from "./images/logo.svg";
-import avatar from "./images/image-avatar.png"
 import { FaChevronLeft, FaChevronRight, FaShoppingCart } from "react-icons/fa";
 import minus from "./images/icon-minus.svg"
 import plus from "./images/icon-plus.svg"
-import close from "./images/icon-close.svg"
+import Header from "./components/Header";
+import Lightbox from "./components/Lightbox";
 
-function Header() {
-  return (
-    <>
-      <header className="flex items-center justify-between p-8 border-b border-slate-400 max-w-7xl mx-auto">
-        <div className="flex items-center justify-start gap-4">
-          <img src={logo} alt="" />
-          <nav className="hidden">
-            <ul className="flex items-center justify-start gap-4">
-              <li>Collections</li>
-              <li>Men</li>
-              <li>Women</li>
-              <li>About</li>
-              <li>Contact</li>
-            </ul>
-          </nav>
-        </div>
-
-        <div>
-          <ul className="flex items-center justify-start gap-4">
-            <li><button>
-              <FaShoppingCart className="text-2xl text-slate-600" />
-
-            </button></li>
-            <li><img src={avatar} alt="" className="w-12" /></li>
-          </ul>
-        </div>
-      </header>
-    </>
-  )
-}
-
-
-
-function Lightbox({ products, slideIndex, nextSlide, previousSlide, setShowLightbox }) {
-
-  return (
-    <>
-      <article className="bg-black bg-opacity-75 absolute top-0 left-0 right-0 bottom-0 z-50">
-        <button onClick={() => setShowLightbox(false)}>
-          <img src={close} alt="" className="w-10 absolute top-10 right-10" />
-        </button>
-        <div className="flex items-center justify-center h-screen ">
-
-          {products.map((item, index) => (
-            <div key={index} className={slideIndex ===
-              index + 1 ? "relative" : "hidden"}
-            >
-              <img src={item.mainImage} alt="" className="lg:rounded-2xl" />
-
-              <ul>
-                <li><button
-                  onClick={previousSlide}
-                  className="bg-white rounded-full p-5 shadow absolute left-2 top-1/2 -translate-y-1/2"><FaChevronLeft /></button></li>
-                <li><button
-                  onClick={nextSlide}
-                  className="bg-white rounded-full p-5 shadow absolute right-2 top-1/2 -translate-y-1/2"><FaChevronRight /></button></li>
-              </ul>
-
-
-            </div>
-          ))}
-        </div>
-
-      </article>
-    </>
-  )
-}
 function App() {
   const [products] = useState(data);
   const [value, setValue] = useState(0);
