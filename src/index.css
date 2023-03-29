@@ -18,3 +18,8 @@ body {
 }
 
 
+@media(min-width:1024px){
+  .bg-image{
+    height:900px;
+  }
+}

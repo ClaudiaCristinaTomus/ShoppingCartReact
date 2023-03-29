@@ -5,7 +5,7 @@ import avatar from "./images/image-avatar.png"
 import { FaChevronLeft, FaChevronRight, FaShoppingCart } from "react-icons/fa";
 import minus from "./images/icon-minus.svg"
 import plus from "./images/icon-plus.svg"
-
+import close from "./images/icon-close.svg"
 
 function Header() {
   return (
@@ -40,33 +40,37 @@ function Header() {
 
 
 
-function Lightbox({products, slideIndex,nextSlide,previousSlide}){
-  <h2 className="text-8xl font-bold">Lightbox</h2>
+function Lightbox({ products, slideIndex, nextSlide, previousSlide, setShowLightbox }) {
+
   return (
     <>
-    <article className="bg-black bg-opacity-75 absolute top-0 left-0 right-0 bottom-0 z-50">
-      <div>
-        {products.map((item,index)=>(
-           <div key={index} className={slideIndex ===
-            index + 1 ? "relative" : "hidden"}
-      >
-            <img src={item.mainImage} alt="" className="lg:rounded-2xl" />
+      <article className="bg-black bg-opacity-75 absolute top-0 left-0 right-0 bottom-0 z-50">
+        <button onClick={() => setShowLightbox(false)}>
+          <img src={close} alt="" className="w-10 absolute top-10 right-10" />
+        </button>
+        <div className="flex items-center justify-center h-screen ">
 
-            <ul>
-              <li><button
-                onClick={previousSlide}
-                className="bg-white rounded-full p-5 shadow absolute left-2 top-1/2 -translate-y-1/2"><FaChevronLeft /></button></li>
-              <li><button
-                onClick={nextSlide}
-                className="bg-white rounded-full p-5 shadow absolute right-2 top-1/2 -translate-y-1/2"><FaChevronRight /></button></li>
-            </ul>
+          {products.map((item, index) => (
+            <div key={index} className={slideIndex ===
+              index + 1 ? "relative" : "hidden"}
+            >
+              <img src={item.mainImage} alt="" className="lg:rounded-2xl" />
 
-    
+              <ul>
+                <li><button
+                  onClick={previousSlide}
+                  className="bg-white rounded-full p-5 shadow absolute left-2 top-1/2 -translate-y-1/2"><FaChevronLeft /></button></li>
+                <li><button
+                  onClick={nextSlide}
+                  className="bg-white rounded-full p-5 shadow absolute right-2 top-1/2 -translate-y-1/2"><FaChevronRight /></button></li>
+              </ul>
+
+
             </div>
-        ))}
-      </div>
-     
-    </article>
+          ))}
+        </div>
+
+      </article>
     </>
   )
 }
@@ -75,6 +79,7 @@ function App() {
   const [value, setValue] = useState(0);
   const [amount, setAmount] = useState(0);
   const [slideIndex, setSlideIndex] = useState(1);
+  const [showLightbox, setShowLightbox] = useState(false);
 
   const { mainImage } = products[value]
 
@@ -104,15 +109,28 @@ function App() {
   return (
     <>
       <Header />
-      <Lightbox products={products} slideIndex={slideIndex} nextSlide={nextSlide} previousSlide={previousSlide}/>
+      {
+        showLightbox && <Lightbox
+          products={products}
+          slideIndex={slideIndex}
+          nextSlide={nextSlide}
+          previousSlide={previousSlide}
+          setShowLightbox={setShowLightbox}
+        />
+      }
       <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:mt-10">
         <article>
           <div>
             {products.map((item, index) => (
-          <div key={index} className={slideIndex ===
-                index + 1 ? "relative" : "hidden"}
-          >
-                <img src={item.mainImage} alt="" className="w-full lg:rounded-2xl" />
+              <div key={index}
+                className={slideIndex === index + 1 ? "relative" : "hidden"}
+              >
+                <img
+                  src={item.mainImage}
+                  alt=""
+                  className="big-image lg:w-full lg:rounded-2xl"
+                  onClick={() => setShowLightbox(true)}
+                />
 
                 <ul className="lg:hidden">
                   <li><button
@@ -123,24 +141,37 @@ function App() {
                     className="bg-white rounded-full p-5 shadow absolute right-2 top-1/2 -translate-y-1/2"><FaChevronRight /></button></li>
                 </ul>
 
-        
-                </div>
+
+              </div>
             ))}
-           
-              <ul className="hidden lg:flex items-center justify-start gap-5 flex-wrap mt-5">
-                  {products.map((item, index) => (
-                    <li key={item.id}
-                      onClick={() => setValue(index)}
-                      className={`${index === value && "border-2 border-orange-400 opacity-80"} border-2 rounded-2xl overflow-hidden cursor-pointer`}>
-                      <img src={item.thumbnail} alt="" className="w-20 rounded-xl" />
-                    </li>
-                  ))}
-                </ul>
-                </div>
-             
-            
-       
-            </article>
+
+            <ul className="hidden lg:flex items-center justify-start gap-5 flex-wrap mt-5">
+              {products.map((item, index) => (
+                <li key={item.id}
+                  onClick={() => setValue(index)}
+                  className={`${index === value && "border-2 border-orange-400 opacity-80"} border-2 rounded-2xl overflow-hidden cursor-pointer`}>
+                  <img src={item.thumbnail} alt="" className="w-20 rounded-xl" />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:hidden lg:block">
+        
+              
+                <img
+                  src={mainImage}
+                  alt=""
+                  className="w-full lg:rounded-2xl cursor-pointer"
+                  onClick={() => setShowLightbox(true)}
+                />
+
+          </div>
+
+
+
+
+        </article>
 
 
         <article className="px-8 pb-10">
