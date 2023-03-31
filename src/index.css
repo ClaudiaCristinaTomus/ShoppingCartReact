@@ -1,55 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-img{
+img {
   max-width: 100%;
 }
 
-ul{
-  list-style-type:none;
+ul {
+  list-style-type: none;
 }
+
 body {
-  font-family: 'Roboto' sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
 }
 
-nav{
-  position:fixed;
-  top:0;
-  left:-100vw;
-  width:70%;
-  height:100%;
-  z-index:99;
-  transition:all 0.3s ease-in-out;
+nav {
+  position: fixed;
+  top: 0;
+  left: -100vw;
+  width: 70%;
+  height: 100%;
+  z-index: 99;
+  transition: all 0.3s ease-in-out;
 }
 
-
-nav.open{
-  top:0;
-  left:0;
+nav.open {
+  top: 0;
+  left: 0;
   background-color: white;
-  @apply shadow-2xl p-8;
+  @apply shadow-2xl p-8 lg:shadow-none lg:p-0;
 }
 
-nav ul{
-  padding-top:60px;
-  @apply flex items-start flex-col gap-4;
+nav ul {
+  padding-top: 60px;
+  @apply flex items-start flex-col gap-4 lg:flex-row;
 }
 
-nav ul li{
-  @apply font-bold text-lg;
+nav ul li {
+  @apply font-bold text-lg cursor-pointer lg:font-normal lg:text-base;
 }
 
-.close{
+.close {
   @apply absolute top-8 left-8;
-  z-index:999;
+  z-index: 999;
 }
-@media(min-width:1024px){
-  .bg-image{
-    height:900px;
+
+@media (min-width: 1024px) {
+  .big-image {
+    height: 900px;
+  }
+
+  nav {
+    position: relative;
+    left: 0;
+    width: auto;
+    height: auto;
+    z-index: auto;
+  }
+
+  nav.open {
+    background-color: transparent;
+  }
+
+  nav ul {
+    padding-top: 0;
   }
 }
